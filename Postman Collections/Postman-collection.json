@@ -1,0 +1,1733 @@
+{
+	"info": {
+		"_postman_id": "b5c793c7-c464-43d2-a828-ab8abbd48963",
+		"name": "PD_Mobile App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "LOGIN",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"jwt\", jsonData.token);\r",
+									"\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code should return 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status should show ok\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body response should contain Token keyword at every login\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(jsonData.token);\r",
+									"});\r",
+									"\r",
+									"//confirm that token is not null\r",
+									"\r",
+									"\r",
+									" pm.test(\"Assert that the actual devicetoken is the same as the myToken and not null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"token\", jsonData.token);\r",
+									"\r",
+									" });\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "4790572f-8afb-4ce2-b928-f8cac551b5a3"
+							}
+						}
+					],
+					"id": "39497db1-f209-4d7b-8e18-741cbddeb283",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "device_id",
+								"value": "1234"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"gufot@softalliance.com\",\r\n    \"pin\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/mobile/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Login With Invalid Credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"jwt\", jsonData.token);\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"//status code\r",
+									"pm.test(\"Status code should return 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//data\r",
+									"pm.test(\"Validate that data response is equals null\", function () {\r",
+									"    pm.expect(jsonData.data).to.eql(null);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//confirm that message is not null\r",
+									"var msg = jsonData.message;\r",
+									"\r",
+									"pm.test(\"Assert that message is not null\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(msg);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"id": "03f0de6d-7c6a-47c6-bf1f-30a425273f7b"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"id": "ff724746-fefa-4b87-a712-7fb8d52027ab"
+							}
+						}
+					],
+					"id": "0b1e76f3-f722-4a4b-93d2-484059a4dfd3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "device_id",
+								"value": "1234"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"gufot\",\r\n    \"pin\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/mobile/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Login Without Credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"jwt\", jsonData.token);\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"//status code\r",
+									"pm.test(\"Status code should return 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//data\r",
+									"pm.test(\"Validate that data response is equals null\", function () {\r",
+									"    pm.expect(jsonData.data).to.eql(null);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//confirm that message is not null\r",
+									"var msg = jsonData.message;\r",
+									"\r",
+									"pm.test(\"Assert that message is not null\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(msg);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"id": "47324805-974e-4434-88c6-213b7efb6af7"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"id": "fbb84c9a-cc63-45aa-a3fa-4153bcf2844a"
+							}
+						}
+					],
+					"id": "c4ea1f7c-7576-4b35-b6a4-5a7e403f3b14",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "device_id",
+								"value": "1234"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \" \",\r\n    \"pin\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/mobile/login"
+					},
+					"response": []
+				}
+			],
+			"id": "6ae00bb3-7de2-4d8f-9e41-f5f7ba199105"
+		},
+		{
+			"name": "CREATE BILL",
+			"item": [
+				{
+					"name": "Create Bill",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// var jsonData = pm.response.json();\r",
+									"// var successMsg = \"Bill created successfully\";\r",
+									"\r",
+									"// pm.test(\"Status code is 200\", function () {\r",
+									"//     pm.response.to.have.status(200);\r",
+									"// });\r",
+									"\r",
+									"// pm.test(\"There must be a success message when bill is created \", function () {\r",
+									"//     var jsonData = pm.response.json();\r",
+									"//     pm.expect(jsonData.message).to.eql(successMsg);\r",
+									"// });\r",
+									"\r",
+									"// pm.test(\"Assert that the success response returns TRUE\", function () {\r",
+									"//     var jsonData = pm.response.json();\r",
+									"//     pm.expect(jsonData.success).to.eql(true);\r",
+									"// });\r",
+									"\r",
+									"//    pm.test(\"Validate that the SUCCESS response does not return a null value\", function () {\r",
+									"//     pm.expect(pm.response.text()).to.include(jsonData['success'].length!=0);\r",
+									"// });\r",
+									"\r",
+									"// console.log(jsonData.success)\r",
+									"\r",
+									"\r",
+									"// pm.environment.set(\"billNumbers\", jsonData.data.billNumber);\r",
+									"\r",
+									"//  console.log(pm.environment.get(\"billNumbers\"))\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "7543303e-5e71-4088-b2d9-82745098acf6"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var offence = Math.floor(Math.random() * 300);\r",
+									"console.log(offence);\r",
+									"pm.environment.set(\"offenceID\", offence);\r",
+									"\r",
+									"//for(var myRandom =''; myRandom.length <= 3;) myRandom = Math.floor(Math.random() * 100);\r",
+									"//Math.floor(Math.random() * 11);  (\"phone_num\", p_number);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "16271e38-3736-44fb-925f-75cca24d8a8e"
+							}
+						}
+					],
+					"id": "8c06f4d8-cea5-4954-ae95-ad40ddafed2a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "device_id",
+								"value": "1234"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"numberPlate\": \"EKY759BM\",\n\t\"vin\": \" \", //222535\n\t\"offenceIds\": [{{offenceID}}],\n\t\"offenderName\": \"Tim Drake\",\n\t\"address\": \"10, Gotham Road\",\n\t\"phoneNumber\": \"08032942091\",\n\t\"capturedAt\": \"09-29-2021 12:00:00\", // format: MM-DD-YYY HH:mm:ss\n    \"coordinates\": \"1003,1023\",\n\t\"image\": \"iVBORw0KGgoAAAANSUhEUgAAAZAAAAGQCAYAAACAvzbMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RTIzQUFBRUZDRDdBMTFFOEFBQzNGOEIyNTY2MzQ3ODAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RTIzQUFBRjBDRDdBMTFFOEFBQzNGOEIyNTY2MzQ3ODAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpFMjNBQUFFRENEN0ExMUU4QUFDM0Y4QjI1NjYzNDc4MCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpFMjNBQUFFRUNEN0ExMUU4QUFDM0Y4QjI1NjYzNDc4MCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/ProPm0wAAE+HSURBVHja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\"\n}"
+						},
+						"url": "{{baseUrl}}/api/vehicles/bills"
+					},
+					"response": []
+				}
+			],
+			"id": "eebb9c47-76cb-4446-ada7-6dc293500f4b"
+		},
+		{
+			"name": "FETCH CAMERAS",
+			"item": [
+				{
+					"name": "Fetch Cameras",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Message should show Data received successfully\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"Data received successfully\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status should show success\", function () {\r",
+									"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "673be2b9-3586-406f-9c63-a28c50b5bb6b"
+							}
+						}
+					],
+					"id": "9da08776-53aa-4680-a49e-964e86855fbf",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"url": "{{baseUrl}}/api/mobile/cameras"
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Cameras No Auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "e2985c0e-f7a6-4ca0-9abf-dcaba3f64fa9"
+							}
+						}
+					],
+					"id": "de47ea29-83a8-468f-a657-923ee5cc5ca3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": ""
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/api/mobile/cameras"
+					},
+					"response": []
+				}
+			],
+			"id": "61f0d98b-66cd-4321-8db1-5e6d06b5e23f"
+		},
+		{
+			"name": "SEARCH BILLS BY PLATENUM",
+			"item": [
+				{
+					"name": "Search Bills By Plate Number",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the success response returns TRUE\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});\r",
+									"\r",
+									" pm.test(\"Validate that the SUCCESS response does not return a null value\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(jsonData['success'].length!=0);\r",
+									"});\r",
+									" \r",
+									" console.log(jsonData.success)\r",
+									"\r",
+									"let actualBill = pm.environment.get(\"billNumbers\");\r",
+									"let length = jsonData.data.bills.length;\r",
+									"\r",
+									"for (let i = 0; i < length; i++) {\r",
+									"    //console.log(jsonData.data.bills[i].billNumber + \"run one\")\r",
+									"    if (actualBill === jsonData.data.bills[i].billNumber){\r",
+									"      \r",
+									"         pm.test(\"Match the response of the bills\", function () {\r",
+									"            var jsonData = pm.response.json();\r",
+									"            pm.expect(jsonData.data.bills[i].billNumber).to.eql(actualBill);\r",
+									"        });\r",
+									"\r",
+									"        console.log(actualBill);\r",
+									"        console.log(jsonData.data.bills[i].billNumber);\r",
+									"       i = length+1;\r",
+									"       \r",
+									"       }   \r",
+									"\r",
+									"}\r",
+									"\r",
+									"        "
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "366c4004-867e-41b0-a8dd-94bbdb30b9e2"
+							}
+						}
+					],
+					"id": "2a1d88dd-a752-47ea-a34b-1095fd3558b7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqb2xhd2FsZUBzb2Z0YWxsaWFuY2UuY29tIiwianRpIjoiMzJkYWQzZmUtNTE2Ni00MjFhLWE2MWEtZmNhMTI5NzZlZGE2IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI4NmJmOWNiNS04OWMyLTQ2YjktOWI3YS1mYmIzZmYzODBmZmYiLCJleHAiOjE1MjQyMzg3NjcsImlzcyI6Imh0dHA6Ly9zb2Z0YWxsaWFuY2UuY29tIiwiYXVkIjoiaHR0cDovL3NvZnRhbGxpYW5jZS5jb20ifQ.YtLcCAfOi_-eVRQfP_RvBx3ioEBz6fGhS_-REpAkW-s"
+							},
+							{
+								"key": "device_id",
+								"value": "83483"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/vehicles/bills?numberPlate=AGL575GW",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"vehicles",
+								"bills"
+							],
+							"query": [
+								{
+									"key": "numberPlate",
+									"value": "AGL575GW"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Bills with invalid  PlateNum",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the success response returns TRUE\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(null);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Your test name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(false);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"        "
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "1d5912fe-2495-44cb-9c66-3fa90d0032fd"
+							}
+						}
+					],
+					"id": "8a378e43-a56e-46de-a79c-08ac9954eee7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqb2xhd2FsZUBzb2Z0YWxsaWFuY2UuY29tIiwianRpIjoiMzJkYWQzZmUtNTE2Ni00MjFhLWE2MWEtZmNhMTI5NzZlZGE2IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI4NmJmOWNiNS04OWMyLTQ2YjktOWI3YS1mYmIzZmYzODBmZmYiLCJleHAiOjE1MjQyMzg3NjcsImlzcyI6Imh0dHA6Ly9zb2Z0YWxsaWFuY2UuY29tIiwiYXVkIjoiaHR0cDovL3NvZnRhbGxpYW5jZS5jb20ifQ.YtLcCAfOi_-eVRQfP_RvBx3ioEBz6fGhS_-REpAkW-s"
+							},
+							{
+								"key": "device_id",
+								"value": "83483"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/vehicles/bills?numberPlate=ABC376Z@",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"vehicles",
+								"bills"
+							],
+							"query": [
+								{
+									"key": "numberPlate",
+									"value": "ABC376Z@"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Bills with numbers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the success response returns TRUE\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(null);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Your test name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(false);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"        "
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "1984b1a6-4132-4e76-9c9a-095204df1894"
+							}
+						}
+					],
+					"id": "2b1b3bbb-2eb4-47d2-b29b-2ba69255d84b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqb2xhd2FsZUBzb2Z0YWxsaWFuY2UuY29tIiwianRpIjoiMzJkYWQzZmUtNTE2Ni00MjFhLWE2MWEtZmNhMTI5NzZlZGE2IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI4NmJmOWNiNS04OWMyLTQ2YjktOWI3YS1mYmIzZmYzODBmZmYiLCJleHAiOjE1MjQyMzg3NjcsImlzcyI6Imh0dHA6Ly9zb2Z0YWxsaWFuY2UuY29tIiwiYXVkIjoiaHR0cDovL3NvZnRhbGxpYW5jZS5jb20ifQ.YtLcCAfOi_-eVRQfP_RvBx3ioEBz6fGhS_-REpAkW-s"
+							},
+							{
+								"key": "device_id",
+								"value": "83483"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/vehicles/bills?numberPlate=1234567",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"vehicles",
+								"bills"
+							],
+							"query": [
+								{
+									"key": "numberPlate",
+									"value": "1234567"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "b60f0211-ddcc-4c8f-8e0c-01f74d0cec8e"
+		},
+		{
+			"name": "FETCH OFFENCES",
+			"item": [
+				{
+					"name": "Fetch Offences",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the data response does not return null values\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(jsonData.data.length!=0);\r",
+									"});\r",
+									"\r",
+									"console.log(\"res => \"+jsonData.data.length!=0);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "10109390-a859-4774-91e0-60c235987191"
+							}
+						}
+					],
+					"id": "f18cfd83-8260-4dca-8749-597ff204d081",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "device_id",
+								"value": "1234"
+							}
+						],
+						"url": "{{baseUrl}}/api/vehicles/offences"
+					},
+					"response": []
+				}
+			],
+			"id": "c3b4b336-4168-4ba7-835f-78941a927b4e"
+		},
+		{
+			"name": "GET BANK ACCOUNT",
+			"item": [
+				{
+					"name": "Get Bank Account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the status response returns success \", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the status response is not null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the message is not null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"Bank account retrieved successfully\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "75d5642b-f2f1-4107-8477-d454cb37a782"
+							}
+						}
+					],
+					"id": "d09245d5-f39c-4d9a-92af-1d9c7dacc5fb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "device_id",
+								"value": "1234"
+							}
+						],
+						"url": "{{baseUrl}}/api/mobile/bank-accounts"
+					},
+					"response": []
+				}
+			],
+			"id": "0ce32f3b-ca33-4fba-a9c6-563d7be15396"
+		},
+		{
+			"name": "FETCH DASHBOARD",
+			"item": [
+				{
+					"name": "Fetch Dashboard",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the status response returns success \", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success\");\r",
+									"});\r",
+									"\r",
+									"var myStatus = \"success\"\r",
+									"pm.test(\"Match and validate that the status reponse is not null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.status).to.eql(myStatus);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that data values are not null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data).to.eql(jsonData.data);\r",
+									"});\r",
+									"console.log(jsonData.data);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "993a6d26-61f0-41bb-8048-60d264f7d2c7"
+							}
+						}
+					],
+					"id": "81fab523-6765-4a9a-b76b-dece7ec05805",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/api/mobile/dashboard"
+					},
+					"response": []
+				}
+			],
+			"id": "8f6a7f3e-ab43-474b-8bcb-2988afba3ba4"
+		},
+		{
+			"name": "CONFIRM ACCOUNT NUM",
+			"item": [
+				{
+					"name": "Confirm Account Number",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the status response returns SUCCESS\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate that the data response returns the account_number\", function () {\r",
+									"  pm.expect(pm.response.text()).to.include(jsonData.data.account_number);\r",
+									" })\r",
+									"\r",
+									" var myAccountNum = \"6030422180\";\r",
+									" pm.test(\"Validate that the account number value is not null and is the same with the actual input \", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.account_number).to.eql(myAccountNum);\r",
+									"});\r",
+									"\r",
+									"console.log(jsonData.status)"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "c6f2e8ca-bb0f-4e3a-bd32-16e99ceadd0c"
+							}
+						}
+					],
+					"id": "e1ec9efb-dcd3-4abe-9b73-a9085d4e74e2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "device_id",
+								"value": "1234"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/mobile/confirm-account?accountNumber=6030422180&bankCode=082",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"mobile",
+								"confirm-account"
+							],
+							"query": [
+								{
+									"key": "accountNumber",
+									"value": "6030422180"
+								},
+								{
+									"key": "bankCode",
+									"value": "082"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm Account Num wihout A/C Num",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the status response returns ERROR\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"error\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the message response returns bank_code is required\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"bank_code is required\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									" \r",
+									"\r",
+									"console.log(jsonData.status)"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "d202c0dc-ec08-43bf-9adc-a36f8f4e87c9"
+							}
+						}
+					],
+					"id": "8df5e5b5-3223-4586-b38c-9c0d0bb885c7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "device_id",
+								"value": "1234"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/mobile/confirm-account?accountNumber=6030422180",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"mobile",
+								"confirm-account"
+							],
+							"query": [
+								{
+									"key": "accountNumber",
+									"value": "6030422180"
+								},
+								{
+									"key": "bankCode",
+									"value": "082",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm Account Num wihout bankCode",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the status response returns ERROR\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"error\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the message response returns bank_code is required\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"bank_code is required\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									" \r",
+									"\r",
+									"console.log(jsonData.status)"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "39b7b338-4867-461e-8ac0-092126404710"
+							}
+						}
+					],
+					"id": "940009a1-edd6-45dc-943e-bc46acd35c73",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "device_id",
+								"value": "1234"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/mobile/confirm-account?accountNumber=6030422180",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"mobile",
+								"confirm-account"
+							],
+							"query": [
+								{
+									"key": "accountNumber",
+									"value": "6030422180"
+								},
+								{
+									"key": "bankCode",
+									"value": "082",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "96788bc8-490c-4565-99c0-66ca4f67bc47"
+		},
+		{
+			"name": "WITHDRAW FROM WALLET",
+			"item": [
+				{
+					"name": "Withdraw from Wallet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the status response returns success \", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the status response returns success \", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Withdrawal was successfully processd. You should receive your payment within the next 24hrs\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "a066b87e-d312-4159-ae0a-02958f8a0cbe"
+							}
+						}
+					],
+					"id": "2962c9be-652b-43d1-bd84-2fb4c7bf6f3c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "device_id",
+								"value": "1234"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 5,\r\n    \"bankAccountId\": 48\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/mobile/withdraw"
+					},
+					"response": []
+				},
+				{
+					"name": "Withdraw from Wallet without bankID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the status response returns error \", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"error\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the message response \", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"You need to select an account to withdraw to\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "d16ca7fe-ba7a-4a63-9d69-d19ef3a4ffb2"
+							}
+						}
+					],
+					"id": "e633d366-09a7-4a56-ab1c-dff61f0c2583",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "device_id",
+								"value": "1234"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 5\r\n    //\"bankAccountId\": 48\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/mobile/withdraw"
+					},
+					"response": []
+				},
+				{
+					"name": "Withdraw from Wallet without Amount",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the status response returns error \", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"error\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the message response \", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Amount is lower than the withdrawal threshold\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "2be9b65f-20b9-4b9e-9395-3109af9e8cb3"
+							}
+						}
+					],
+					"id": "dcc2c09e-8605-44f7-9df6-62354aa40394",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "device_id",
+								"value": "1234"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    //\"amount\": 5,\r\n    \"bankAccountId\": 48\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/mobile/withdraw"
+					},
+					"response": []
+				}
+			],
+			"id": "747fe20f-ffde-43a4-b08c-870a92d9fe5c"
+		},
+		{
+			"name": "CREATE BANK",
+			"item": [
+				{
+					"name": "Create Bank Account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the status response returns Success\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that a success message is returned\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Bank account saved successfully\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "f688eac8-65ea-4280-9532-d75af52b44e2"
+							}
+						}
+					],
+					"id": "36944f0f-e4b9-4351-9d35-4db21be8df2b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "device_id",
+								"value": "1234"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"UFOT GWENDOLINE EMIYE\",\r\n    \"number\": \"6030422180\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/mobile/bank-account"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Bank Account (Existing)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the status response returns false/error\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"error\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that an error message is returned\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"You have already added this account\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "cd9689cd-0bf3-43bf-a134-659529ac8e3d"
+							}
+						}
+					],
+					"id": "5e89c75f-a80d-45bd-aabe-b3477e0769d0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "device_id",
+								"value": "1234"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"UFOT GWENDOLINE EMIYE\",\r\n    \"number\": \"6030422180\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/mobile/bank-account"
+					},
+					"response": []
+				}
+			],
+			"id": "1d170d41-5253-4372-aa2c-31201c759a1b"
+		},
+		{
+			"name": "FETCH SETTINGS",
+			"item": [
+				{
+					"name": "Fetch Settings",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the status response returns a success\", function () {\r",
+									"  pm.expect(pm.response.text()).to.include(jsonData.status);\r",
+									" })\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate that the data response list is not empty\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data).to.eql(jsonData.data);\r",
+									"});\r",
+									"\r",
+									"var myStatus= \"success\";\r",
+									"pm.test(\"Validate that the status is not null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.status).to.eql(myStatus);\r",
+									"});\r",
+									"\r",
+									"console.log(jsonData.status)\r",
+									"\r",
+									"//jsonData['success'].length!=0\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "d12c5f53-1d2a-48ad-b0c6-468040e5d3a3"
+							}
+						}
+					],
+					"id": "348c01e4-9d50-4ee8-8a48-a93f6c9590eb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "device_id",
+								"value": "1234"
+							}
+						],
+						"url": "{{baseUrl}}/api/mobile/settings"
+					},
+					"response": []
+				}
+			],
+			"id": "4b731629-88d0-4197-aeb7-d37193707e04"
+		},
+		{
+			"name": "FETCH PAYMENTS",
+			"item": [
+				{
+					"name": "Fetch Payments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the status response returns Success\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"success\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the data response does not return  null values\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(jsonData['data'].length!=0);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the status response does not return a null value\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(jsonData['status'].length!=0);\r",
+									"});\r",
+									"console.log(jsonData.status)\r",
+									"console.log(jsonData.data);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "6242f271-3dc2-4d5f-901f-176803a6be7b"
+							}
+						}
+					],
+					"id": "e0aa820e-cfca-41e6-a7d0-aa347a3dfc98",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "device_id",
+								"value": "1234"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/mobile/payments?numberPlate=EPE987GF",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"mobile",
+								"payments"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "f5190e93-35ed-4019-a0eb-d9455bea3bfa",
+									"disabled": true
+								},
+								{
+									"key": "numberPlate",
+									"value": "EPE987GF"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Payments Without PlateNum",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the status response returns error\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"error\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"var mydata = jsonData.data\r",
+									"\r",
+									"pm.test(\"Validate that the data response  returns  null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data).to.eql(mydata);\r",
+									"});\r",
+									"console.log(jsonData.data);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "709a15a4-7e84-4080-ae16-d387904980c5"
+							}
+						}
+					],
+					"id": "22a9ba35-2797-4ad8-9cd7-0a29d4ca0f0a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "device_id",
+								"value": "1234"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/mobile/payments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"mobile",
+								"payments"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "f5190e93-35ed-4019-a0eb-d9455bea3bfa",
+									"disabled": true
+								},
+								{
+									"key": "numberPlate",
+									"value": "EPE987GF",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Payments-InvalidPlateNum",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate that the status response returns error\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"error\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"var mydata = jsonData.data\r",
+									"\r",
+									"pm.test(\"Validate that the data response  returns  null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data).to.eql(mydata);\r",
+									"});\r",
+									"console.log(jsonData.data);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "a897c509-ade6-47d8-ae41-cf9993eb8ad5"
+							}
+						}
+					],
+					"id": "4aa43fcc-ada2-40b9-a90b-124a35ee32e9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "device_id",
+								"value": "1234"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/mobile/payments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"mobile",
+								"payments"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "f5190e93-35ed-4019-a0eb-d9455bea3bfa",
+									"disabled": true
+								},
+								{
+									"key": "numberPlate",
+									"value": "EPE987GF@",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "2b2ee90a-7611-48a7-8cce-0663f2a8c060"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				],
+				"id": "6a643797-816b-412e-b74a-3daac7f63b22"
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				],
+				"id": "eadfdcda-07ba-42d7-a9e1-d23358d8bc6f"
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
